@@ -4,24 +4,40 @@ from math_operations.math_time import math_main
 def parser(expression):
 
     #calling in the input parser
-    parsed_input = input_parser(expression)
+    parsed_input, operations = input_parser(expression)
 
     #test print statement
     print(parsed_input)
 
     #doing the math on the input parser
-    answer = math_main(parsed_input)
+    answer = math_main(parsed_input, operations)
+
+    #returning the result
+    return answer
 
 
 #defining the input parser
 def input_parser(expression):
+    print("Inputted: ", expression)
     #defining comparison variables
     numbers = "1234567890"
     parsed_exp = []
+    operations = {
+        "parenthesis": 0,
+        "exponents" : 0,
+        "multiplication" : 0,
+        "division" : 0,
+        "addition" : 0,
+        "subtraction" : 0
+    }
 
     #going through the expression
     i = 0
     while i  < len(expression):
+
+        #setting the flag 
+        flag = 1
+
         #checking if we found a number
         if expression[i] in numbers:
             #defining while loop counter
@@ -38,6 +54,7 @@ def input_parser(expression):
                 if expression[start] in numbers:
                     num_store = num_store + expression[start]
                     start = start + 1
+                    
                 else: 
                     break
             
@@ -45,18 +62,31 @@ def input_parser(expression):
             parsed_exp.append(num_store)
 
             #adjusting the i varaible 
-            i = start + i
+            i = start
+            flag = 0
         
         #checking if we found a +
         elif expression[i] == '+':
             parsed_exp.append('+')
+            operations["addition"] = 1
         
         #checking if we found a -
         elif expression[i] == '-':
             parsed_exp.append('-')
+            operations["subtraction"] = 1
+
+        #checking if we found a *
+        elif expression[i] == '*':
+            parsed_exp.append('*')
+            operations["multiplication"] = 1
+
+        #checking if we found a /
+        elif expression[i] == '/':
+            parsed_exp.append('/')
+            operations["division"] = 1
 
         #iterating the i value
-        i = i + 1
-    return parsed_exp
-
-parser("1234 + 567890")
+        if flag == 1:
+            i = i + 1
+        
+    return parsed_exp, operations

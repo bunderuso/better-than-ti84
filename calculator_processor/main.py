@@ -4,7 +4,8 @@ from parser import parser
 #declaring the while loop to keep it running
 while True:
     #askinf the user for input
-    print("=============================")
+    #print("=============================")
     expression = input()
     output = parser(expression)
+    print("Result: ", output)
     print("=============================")
