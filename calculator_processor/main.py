@@ -2,10 +2,16 @@
 from parser import parser
 
 #declaring the while loop to keep it running
-while True:
-    #askinf the user for input
+run = True
+while run == True:
+    #asking the user for input
     #print("=============================")
     expression = input()
-    output = parser(expression)
-    print("Result: ", output)
+
+    #checking if the program needs to quit
+    if expression == "quit":
+        run = False
+    else:
+        output = parser(expression)
+        print("Result: ", output)
     print("=============================")

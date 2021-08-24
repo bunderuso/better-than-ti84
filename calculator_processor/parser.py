@@ -1,5 +1,6 @@
 #custom imports
 from math_operations.math_time import math_main
+from parse_functs.parenthesis import paren_parser
 #defining the parser function
 def parser(expression):
 
@@ -20,7 +21,8 @@ def parser(expression):
 def input_parser(expression):
     print("Inputted: ", expression)
     #defining comparison variables
-    numbers = "1234567890"
+    numbers = "1234567890~"
+    parens = "()"
     parsed_exp = []
     operations = {
         "parenthesis": 0,
@@ -38,8 +40,13 @@ def input_parser(expression):
         #setting the flag 
         flag = 1
 
+        #checking if we found parenthesis
+        if expression[i] in parens:
+            #call the parenthesis function to parse 
+            store = paren_parser(expression, i)
+            
         #checking if we found a number
-        if expression[i] in numbers:
+        elif expression[i] in numbers:
             #defining while loop counter
             start = 0
             start = len(expression) - i
@@ -52,7 +59,10 @@ def input_parser(expression):
             while start < len(expression):
                 #adding the numbers to the storage 
                 if expression[start] in numbers:
-                    num_store = num_store + expression[start]
+                    if expression[start] == "~":
+                        num_store = num_store + "-"
+                    else:
+                        num_store = num_store + expression[start]
                     start = start + 1
                     
                 else: 
