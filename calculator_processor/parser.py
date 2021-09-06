@@ -95,6 +95,11 @@ def input_parser(expression):
             parsed_exp.append('/')
             operations["division"] = 1
 
+        #checking if we found a ^
+        elif expression[i] == '^':
+            parsed_exp.append('^')
+            operations["exponents"] = 1
+
         #iterating the i value
         if flag == 1:
             i = i + 1

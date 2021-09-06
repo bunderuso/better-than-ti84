@@ -1,5 +1,6 @@
 #custom imports
 from parser import parser
+import math
 
 #declaring the while loop to keep it running
 run = True
